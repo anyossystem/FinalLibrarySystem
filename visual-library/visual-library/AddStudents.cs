@@ -18,6 +18,7 @@ namespace visual_library
         public AddStudents()
         {
             InitializeComponent();
+
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)

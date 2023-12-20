@@ -24,7 +24,7 @@ namespace visual_library
 
         private void button1_Click(object sender, EventArgs e)
         {
-            AddBooks ab = new AddBooks();
+            AddBooks ab = new AddBooks("");
             ab.Show();
         }
 

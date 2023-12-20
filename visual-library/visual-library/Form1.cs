@@ -40,7 +40,31 @@ namespace visual_library
                 MessageBox.Show("Login Failed");
             }
             con.Close();
+
+        }
+
+        private void student_Click(object sender, EventArgs e)
+        {
+            con.Open();
+
+            SqlCommand cmd = new SqlCommand("SELECT * FROM Login_Student WHERE username = @inputusername AND password = @inputpassword", con);
+            cmd.Parameters.Add("@inputusername", SqlDbType.NVarChar).Value = textBox1.Text;
+            cmd.Parameters.Add("@inputpassword", SqlDbType.NVarChar).Value = textBox2.Text;
+            SqlDataReader dr = cmd.ExecuteReader();
+
+            if (dr.Read())
+            {
+                string userRole = dr["UserRole"].ToString();  // Assuming UserRole is the name of the column in the database
+                AddBooks ab = new AddBooks(userRole);  // Pass the user's role to the ViewBooks constructor
+                ab.Show();
+                this.Hide();
+            }
+            else
+            {
+                MessageBox.Show("Login Failed");
+            }
+
+            con.Close();
         }
     }
-    }
-
+}

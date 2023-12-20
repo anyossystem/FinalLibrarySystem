@@ -15,9 +15,11 @@ namespace visual_library
     public partial class ViewBooks : Form
     {
         SqlConnection con = new SqlConnection("Data Source=.\\SQLEXPRESS;Initial Catalog=mySQLlibrary;Integrated Security=SSPI;");
+        
         public ViewBooks()
         {
             InitializeComponent();
+            
 
             previousform.Click += button2_Click;
         }
@@ -39,16 +41,19 @@ namespace visual_library
 
         private void ViewBooks_Load(object sender, EventArgs e)
         {
-            con.Open();
-            SqlCommand cmd = new SqlCommand("ViewBooks", con);
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.Add("@Book_Name", SqlDbType.NVarChar).Value = "";
-            SqlDataAdapter sda = new SqlDataAdapter(cmd);
-            DataTable dt = new DataTable();
-            sda.Fill(dt);
-            dataGridView1.DataSource = dt;
-            con.Close();
+           
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand("ViewBooks", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@Book_Name", SqlDbType.NVarChar).Value = "";
+                SqlDataAdapter sda = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                sda.Fill(dt);
+                dataGridView1.DataSource = dt;
+                con.Close();
 
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -78,6 +83,7 @@ namespace visual_library
 
         private void button2_Click_1(object sender, EventArgs e)
         {
+
             if (dataGridView1.SelectedRows.Count > 0)
             {
                 con.Open();
@@ -120,6 +126,7 @@ namespace visual_library
             {
                 MessageBox.Show("You must select a row in order to update.");
             }
+
         }
 
     }
